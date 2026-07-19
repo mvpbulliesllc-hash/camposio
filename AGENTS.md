@@ -1,41 +1,42 @@
 # AGENTS.md
 
-Documentation-site guidance for AI agents working under `docs/`.
+Python SDK guidance for AI agents.
 
 ## Scope
 
-`docs/` is a Fumadocs/Next.js site. Docs PRs branch from `next` and target `next`.
+`python/` contains the Python SDK, provider packages, tests, nox sessions, release scripts, and Python docs.
 
-## Read Next
+## Skill Routing
 
-- Use the `docs-decisions` skill for docs content, changelogs, decisions, docs automation, or docs review.
-- Context references live under `docs/agent-guidance/context/`; use `docs/agent-guidance/context/twoslash.md` before editing typed MDX examples.
-- Agent workflow prompts live under `docs/agent-guidance/agents/`.
-- Changelog guidance lives at `docs/agent-guidance/guides/changelog.md`.
-- Decision records live under `docs/decisions/`; read `docs/decisions/README.md` first.
+- Use `python-sdk` for core SDK code under `python/composio/`.
+- Use `python-providers` for `python/providers/*`.
+- Use `python-testing` for Ruff, mypy, pytest, nox, and Makefile verification.
+- Use `python-release` for build, bump, and publishing workflow changes.
+- Use `cross-sdk-parity` when matching TypeScript SDK behavior.
+
+## Setup
+
+Run from `python/`:
+
+```bash
+make env
+source .venv/bin/activate
+```
 
 ## Commands
 
-Run commands from `docs/`:
-
 ```bash
-bun install
-bun run dev
-bun run build
-bun run types:check
-bun run lint
-bun run lint:links
-bun run test
-bun run test:integration
-bun run generate:toolkits
-bun run generate:meta-tools
-bun run generate:api-index
+make fmt
+make chk
+make tst
+make snt
+make type_inference
+make build
 ```
 
 ## Rules
 
-- TypeScript code blocks in MDX are checked during docs builds. Use `docs/agent-guidance/context/twoslash.md` before changing typed examples.
-- Internal docs links must be relative site paths such as `/docs/...`, `/reference/...`, or `/assets/...`.
-- API reference pages and toolkit/meta-tool data are generated. Do not hand-edit generated data unless the local generator owns it.
-- Changelog entries require `title` and `date` frontmatter, and dates use `YYYY-MM-DD`.
-- Prefer cURL for API interactions because docs are consumed by humans and AI crawlers.
+- Use Ruff for formatting/linting and mypy for type checks.
+- Add pytest coverage for behavior changes.
+- Keep provider-specific changes under the relevant `python/providers/<provider>/` package.
+- When bumping `composio-client`, update `python/pyproject.toml`, `python/setup.py`, and root `uv.lock` together.
