@@ -1,0 +1,121 @@
+@import 'tailwindcss';
+
+/* Enable class-based dark mode (in addition to the default media query) so the
+   docs components' `dark:` variants respond to the <html class="dark"> toggle. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ------------------------------------------------------------------ *
+ * fumadocs design tokens
+ *
+ * The extracted docs components style themselves with fumadocs' `fd-*`
+ * color utilities (e.g. `bg-fd-background`, `text-fd-muted-foreground`).
+ * Tailwind v4 generates those utilities from `--color-fd-*` theme keys.
+ * We point each key at a runtime CSS variable so light/dark can swap the
+ * underlying value without regenerating utilities.
+ * ------------------------------------------------------------------ */
+@theme inline {
+  --color-fd-background: var(--fd-background);
+  --color-fd-foreground: var(--fd-foreground);
+  --color-fd-muted: var(--fd-muted);
+  --color-fd-muted-foreground: var(--fd-muted-foreground);
+  --color-fd-border: var(--fd-border);
+  --color-fd-card: var(--fd-card);
+  --color-fd-card-foreground: var(--fd-card-foreground);
+  --color-fd-popover: var(--fd-popover);
+  --color-fd-popover-foreground: var(--fd-popover-foreground);
+  --color-fd-primary: var(--fd-primary);
+  --color-fd-primary-foreground: var(--fd-primary-foreground);
+  --color-fd-secondary: var(--fd-secondary);
+  --color-fd-secondary-foreground: var(--fd-secondary-foreground);
+  --color-fd-accent: var(--fd-accent);
+  --color-fd-accent-foreground: var(--fd-accent-foreground);
+  --color-fd-ring: var(--fd-ring);
+}
+
+:root {
+  --composio-brand: #ff6a1a;
+  --composio-orange: #ff8a3d;
+
+  --fd-background: #ffffff;
+  --fd-foreground: #0a0a0a;
+  --fd-muted: #f5f5f5;
+  --fd-muted-foreground: #6b7280;
+  --fd-border: #e6e6e6;
+  --fd-card: #fafafa;
+  --fd-card-foreground: #0a0a0a;
+  --fd-popover: #ffffff;
+  --fd-popover-foreground: #0a0a0a;
+  --fd-primary: var(--composio-brand);
+  --fd-primary-foreground: #ffffff;
+  --fd-secondary: #f4f4f5;
+  --fd-secondary-foreground: #0a0a0a;
+  --fd-accent: #f0f0f1;
+  --fd-accent-foreground: #0a0a0a;
+  --fd-ring: var(--composio-brand);
+
+  /* Hero mock-chat surfaces — intentionally dark in both themes. */
+  --hero-surface: #0f0f10;
+  --hero-surface-2: #17171a;
+  --hero-bubble: #1f1f24;
+  --hero-text: #ededed;
+  --hero-text-muted: #9ca3af;
+  --hero-border: rgba(255, 255, 255, 0.08);
+}
+
+.dark {
+  --fd-background: #0a0a0a;
+  --fd-foreground: #ededed;
+  --fd-muted: #161616;
+  --fd-muted-foreground: #a1a1aa;
+  --fd-border: #262626;
+  --fd-card: #111112;
+  --fd-card-foreground: #ededed;
+  --fd-popover: #111112;
+  --fd-popover-foreground: #ededed;
+  --fd-primary: var(--composio-brand);
+  --fd-primary-foreground: #0a0a0a;
+  --fd-secondary: #1a1a1b;
+  --fd-secondary-foreground: #ededed;
+  --fd-accent: #1f1f21;
+  --fd-accent-foreground: #ededed;
+  --fd-ring: var(--composio-brand);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --fd-background: #0a0a0a;
+    --fd-foreground: #ededed;
+    --fd-muted: #161616;
+    --fd-muted-foreground: #a1a1aa;
+    --fd-border: #262626;
+    --fd-card: #111112;
+    --fd-card-foreground: #ededed;
+    --fd-popover: #111112;
+    --fd-popover-foreground: #ededed;
+    --fd-primary-foreground: #0a0a0a;
+    --fd-secondary: #1a1a1b;
+    --fd-secondary-foreground: #ededed;
+    --fd-accent: #1f1f21;
+    --fd-accent-foreground: #ededed;
+  }
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: var(--fd-background);
+  color: var(--fd-foreground);
+  font-family:
+    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  border-color: var(--fd-border);
+}
